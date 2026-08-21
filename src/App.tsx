@@ -1,45 +1,31 @@
-import { useState} from 'react'
+import {useState} from 'react'
 
 
 export default function App(){
     const[input, setInput] = useState("")
-    const[aluno, setAluno] =  useState("Sem Nenhum nome")
-    const[idade, setIdade] = useState("")
+    
+    const[mensagem, setMensagem] = useState("Nenhuma mensagem")
 
-    function mostrarAluno(){
-        setAluno(input)
-
+    function mostrarMensagem(){
+        setMensagem(input)
     }
 
-
     return(
-        
         <div>
-           <h1>Conhecendo UseState!</h1>
+            <h1>Exercicio de useState!</h1>
 
-           <input
-           placeholder="Digite um nome"
-           value={input}
-           onChange={ (e) => setInput(e.target.value)}
-           />
+            <h2>Digite uma mensagem:</h2>
 
-           <br/><br/>
+            <input
+            placeholder=''
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            
+            />
+            <br /><br/>
+            <button onClick={mostrarMensagem}>Mostrar Mensagem!</button>
+            <h1>Mensagem: {mensagem}</h1>
 
-           <input
-           placeholder="Digite uma idade"
-           value={idade}
-           onChange={(e) => setIdade(e.target.value)}/>
-
-
-           <br/><br/>
-           
-           <button onClick={mostrarAluno}>Mostrar Aluno</button>
-
-           <hr />
-
-
-           <h2> Bem vindo: {aluno}</h2>
         </div>
-        
     )
 }
