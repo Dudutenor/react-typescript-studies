@@ -2,29 +2,45 @@ import {useState} from 'react'
 
 
 export default function App(){
-    const[input, setInput] = useState("")
-    
-    const[mensagem, setMensagem] = useState("Nenhuma mensagem")
+    const [input, setInput] = useState("")
 
-    function mostrarMensagem(){
-        setMensagem(input)
+    const [numero, setNumero] = useState(0)
+
+    function Defenir(){
+        setNumero( Number(input))
+    }
+
+    function Aumentar(){
+        setNumero(numero + 1)
+    }
+
+    function Diminuir(){
+        setNumero(numero - 1)
     }
 
     return(
         <div>
-            <h1>Exercicio de useState!</h1>
+            <h1>Contador Personalizado</h1>
 
-            <h2>Digite uma mensagem:</h2>
+            <p>Digite um numero:</p>
 
             <input
             placeholder=''
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            
             />
-            <br /><br/>
-            <button onClick={mostrarMensagem}>Mostrar Mensagem!</button>
-            <h1>Mensagem: {mensagem}</h1>
+
+            <br/>
+
+            <button onClick={Defenir}>Definir</button>
+
+            <h2>Numero atual: {numero}</h2>
+
+            <br />
+        <button onClick={Aumentar}>
+        Aumentar</button>
+        <button onClick={Diminuir}
+        >Diminuir</button>
 
         </div>
     )
