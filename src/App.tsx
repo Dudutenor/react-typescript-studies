@@ -1,47 +1,49 @@
 import {useState} from 'react'
 
-
 export default function App(){
-    const [input, setInput] = useState("")
+    const[nome, setNome] = useState("")
 
-    const [numero, setNumero] = useState(0)
+    const[idade, setIdade] = useState("")
+    
+    const[nomeAluno, setNomeAluno] = useState("")
 
-    function Defenir(){
-        setNumero( Number(input))
+    const[idadeAluno, setIdadeAluno] = useState("")
+
+    function mostrarAluno(){
+        setIdadeAluno(idade)
+        
+        setNomeAluno(nome)
     }
 
-    function Aumentar(){
-        setNumero(numero + 1)
-    }
-
-    function Diminuir(){
-        setNumero(numero - 1)
-    }
+    
 
     return(
         <div>
-            <h1>Contador Personalizado</h1>
-
-            <p>Digite um numero:</p>
-
+            <h1>Cadastro de Aluno!</h1>
+            <p>Nome:</p>
+            
             <input
-            placeholder=''
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
+            placeholder='Digite um Nome!'
+            value={nome}
+            onChange={(e) =>setNome(e.target.value) }/>
+            
+            <br />
+
+            <p>Idade:</p>
+            
+            <input
+            placeholder='Digite uma'
+            value={idade}
+            onChange={(e) => setIdade(e.target.value)}
             />
 
-            <br/>
-
-            <button onClick={Defenir}>Definir</button>
-
-            <h2>Numero atual: {numero}</h2>
-
             <br />
-        <button onClick={Aumentar}>
-        Aumentar</button>
-        <button onClick={Diminuir}
-        >Diminuir</button>
 
+            <button onClick={mostrarAluno}>Mostrar Aluno</button>
+            <br />
+
+            <h1>Aluno: {nomeAluno}</h1>
+            <h1>idade: {idadeAluno}</h1>
         </div>
     )
 }
