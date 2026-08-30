@@ -1,49 +1,28 @@
-import {useState} from 'react'
+import { useState } from 'react'
+import { Header} from './components/header'
+import { Formulario} from './components/formulario'
+import {Aluno} from './components/aluno'
+import './components/css/app.css'
+
 
 export default function App(){
-    const[nome, setNome] = useState("")
+const[nomeAluno, setNomeAluno] = useState("")
 
-    const[idade, setIdade] = useState("")
-    
-    const[nomeAluno, setNomeAluno] = useState("")
 
-    const[idadeAluno, setIdadeAluno] = useState("")
+const[idadeAluno, setIdadeAluno] = useState(0)
 
-    function mostrarAluno(){
-        setIdadeAluno(idade)
-        
-        setNomeAluno(nome)
-    }
-
-    
+function cadastrarAluno(nome: string, idade: number) {
+    setNomeAluno(nome)
+    setIdadeAluno(idade)
+}
 
     return(
         <div>
-            <h1>Cadastro de Aluno!</h1>
-            <p>Nome:</p>
+            <Header/>
+
+            <Formulario cadastrarAluno={cadastrarAluno} />
             
-            <input
-            placeholder='Digite um Nome!'
-            value={nome}
-            onChange={(e) =>setNome(e.target.value) }/>
-            
-            <br />
-
-            <p>Idade:</p>
-            
-            <input
-            placeholder='Digite uma'
-            value={idade}
-            onChange={(e) => setIdade(e.target.value)}
-            />
-
-            <br />
-
-            <button onClick={mostrarAluno}>Mostrar Aluno</button>
-            <br />
-
-            <h1>Aluno: {nomeAluno}</h1>
-            <h1>idade: {idadeAluno}</h1>
+            <Aluno nome={nomeAluno} idade={idadeAluno} />
         </div>
     )
-}
+}   
