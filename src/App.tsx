@@ -1,28 +1,50 @@
-import { useState } from 'react'
-import { Header} from './components/header'
-import { Formulario} from './components/formulario'
-import {Aluno} from './components/aluno'
-import './components/css/app.css'
-
-
-export default function App(){
-const[nomeAluno, setNomeAluno] = useState("")
-
-
-const[idadeAluno, setIdadeAluno] = useState(0)
-
-function cadastrarAluno(nome: string, idade: number) {
-    setNomeAluno(nome)
-    setIdadeAluno(idade)
+import { useState } from "react"
+import './App.css'
+interface InfoProdutoProps{
+    nome: string;
+    preco: string;
 }
 
-    return(
-        <div>
-            <Header/>
+export default function App() {
+    const[precoInput, setPrecoInput] = useState("");
+    const[produtoInput, setProdutoInput] = useState("");
+    const[infoProduto, setInfoProduto] = useState<InfoProdutoProps>();
 
-            <Formulario cadastrarAluno={cadastrarAluno} />
-            
-            <Aluno nome={nomeAluno} idade={idadeAluno} />
+    function mostrarProduto(){
+        setInfoProduto({
+            nome: produtoInput,
+            preco: precoInput,
+        })
+    }
+
+    return (
+         <div className="container">
+
+        <h1>Sistema de Produtos!</h1>
+
+        <input
+            placeholder="Digite o nome do produto"
+            value={produtoInput}
+            onChange={(e) => setProdutoInput(e.target.value)}
+        />
+
+        <input
+            placeholder="Digite o preço"
+            value={precoInput}
+            onChange={(e) => setPrecoInput(e.target.value)}
+        />
+
+        <button onClick={mostrarProduto}>
+            Mostrar Produto!
+        </button>
+
+        <div className="resultado">
+            <h2>Produto: {infoProduto?.nome}</h2>
+            <h2>Preço: {infoProduto?.preco}</h2>
         </div>
+
+    </div>
+
+        
     )
-}   
+}
