@@ -1,50 +1,53 @@
 import { useState } from "react"
-import './App.css'
-interface InfoProdutoProps{
+
+interface PersonagemProps{
     nome: string;
-    preco: string;
+    nivel: string;
+    classe: string;
 }
 
 export default function App() {
-    const[precoInput, setPrecoInput] = useState("");
-    const[produtoInput, setProdutoInput] = useState("");
-    const[infoProduto, setInfoProduto] = useState<InfoProdutoProps>();
+    const[nome, setNome] = useState("");
 
-    function mostrarProduto(){
-        setInfoProduto({
-            nome: produtoInput,
-            preco: precoInput,
+    const[classe, setClasse] = useState("");
+
+    const[nivel, setNivel] = useState("")
+
+    const[infoPersonagem, setInfoPersonagem] = useState<PersonagemProps>()
+    
+    function CadastrarPersonagem(){
+        setInfoPersonagem({
+            nome: nome,
+            nivel: nivel,
+            classe: classe,
         })
     }
-
     return (
-         <div className="container">
+         <div>
+            <h1>Cadastro de Personagem!</h1>
+            <input
+            placeholder="Digite um nome"
+            value={nome}
+            onChange={(e => setNome(e.target.value))}
+            />
 
-        <h1>Sistema de Produtos!</h1>
+            <input
+            placeholder="Digite a classe"
+            value={classe}
+            onChange={(e) => setClasse(e.target.value)}
+            />
 
-        <input
-            placeholder="Digite o nome do produto"
-            value={produtoInput}
-            onChange={(e) => setProdutoInput(e.target.value)}
-        />
-
-        <input
-            placeholder="Digite o preço"
-            value={precoInput}
-            onChange={(e) => setPrecoInput(e.target.value)}
-        />
-
-        <button onClick={mostrarProduto}>
-            Mostrar Produto!
-        </button>
-
-        <div className="resultado">
-            <h2>Produto: {infoProduto?.nome}</h2>
-            <h2>Preço: {infoProduto?.preco}</h2>
+            <input
+            placeholder="Digite um nivel"
+            value={nivel}
+            onChange={(e) => setNivel(e.target.value)}
+            />
+<br />
+            <button onClick={CadastrarPersonagem}>Cadastrar Personagem!</button>
+<br />
+            <h2>Personagem: {infoPersonagem?.nome}</h2>
+            <p>Classe: {infoPersonagem?.classe}</p>
+            <p>Nivel: {infoPersonagem?.nivel}</p>
         </div>
-
-    </div>
-
-        
     )
 }
