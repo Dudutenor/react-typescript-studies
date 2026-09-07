@@ -1,77 +1,119 @@
 import { useState } from "react";
-import './App.css'
-    interface JogadorProps{
-        nome: string;
-        horas: string;
-        jogo: string;
-    }
-export default function App(){
-    const[nome, setNome] = useState("");
+import "./app.css";
 
-    const[horas, setHoras] = useState("");
+interface PersonagemProps {
+  nome: string;
+  classe: string;
+  nivel: number;
+  vida: number;
+}
 
-    const[jogo, setJogo] = useState("");
+export default function App() {
+  const [personagem, setPersonagem] = useState<PersonagemProps>({
+    nome: "",
+    classe: "",
+    nivel: 0,
+    vida: 0,
+  });
 
-    const[infoJogador, setInfoJogador] = useState<JogadorProps>()
+  function aumentar10() {
+    setPersonagem({ ...personagem, vida: personagem.vida + 10 });
+  }
 
-    function mostrarJogador(){
-        setInfoJogador({
-            nome: nome,
-            horas: horas,
-            jogo: jogo,
-        })
-    }
+  function Diminuir() {
+    setPersonagem({ ...personagem, vida: personagem.vida - 10 });
+  }
 
-return(
+  function SubirNivel() {
+    setPersonagem({ ...personagem, nivel: personagem.nivel + 1 });
+  }
+
+  return (
     <div className="container">
+      <h1 className="titulo">CADASTRO DE PERSONAGEM!</h1>
 
-        <div className="header">
-            <span className="status">● ONLINE</span>
-            <h1>PERFIL DE JOGADOR</h1>
-            <p>REGISTRE SEUS DADOS NO SISTEMA</p>
-        </div>
+      <div className="formulario">
+        <input
+          className="input"
+          placeholder="Digite um nome!"
+          value={personagem.nome}
+          onChange={(e) =>
+            setPersonagem({
+              ...personagem,
+              nome: e.target.value,
+            })
+          }
+        />
 
-        <div className="form">
+        <input
+          className="input"
+          placeholder="Digite uma classe!"
+          value={personagem.classe}
+          onChange={(e) =>
+            setPersonagem({
+              ...personagem,
+              classe: e.target.value,
+            })
+          }
+        />
 
-            <label>NOME DO JOGADOR</label>
-            <input
-                placeholder="Digite seu nome"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-            />
+        <input
+          className="input"
+          placeholder="Digite um nivel!"
+          value={personagem.nivel}
+          onChange={(e) =>
+            setPersonagem({
+              ...personagem,
+              nivel: Number(e.target.value),
+            })
+          }
+        />
 
-            <label>JOGO FAVORITO</label>
-            <input
-                placeholder="Digite seu jogo"
-                value={jogo}
-                onChange={(e) => setJogo(e.target.value)}
-            />
+        <input
+          className="input"
+          placeholder="Digite a vida!"
+          value={personagem.vida}
+          onChange={(e) =>
+            setPersonagem({
+              ...personagem,
+              vida: Number(e.target.value),
+            })
+          }
+        />
+      </div>
+      <div className="informacoes">
+        <h1>Personagem:</h1>
 
-            <label>HORAS JOGADAS</label>
-            <input
-                placeholder="Digite suas horas"
-                value={horas}
-                onChange={(e) => setHoras(e.target.value)}
-            />
+        <h2>
+          Nome: <span>{personagem.nome}</span>
+        </h2>
 
-            <button onClick={mostrarJogador}>
-                MOSTRAR PERFIL
-            </button>
+        <h2>
+          Classe: <span>{personagem.classe}</span>
+        </h2>
 
-        </div>
+        <h2>
+          Nivel: <span>{personagem.nivel}</span>
+        </h2>
 
-        <div className="perfil">
-            <div className="perfil-titulo">
-                <span>PLAYER DATA</span>
-                <span>///</span>
-            </div>
+        <h2>
+          Vida: <span>{personagem.vida}</span>
+        </h2>
+      </div>
 
-            <h2>Nome: <span>{infoJogador?.nome}</span></h2>
-            <h2>Jogo: <span>{infoJogador?.jogo}</span></h2>
-            <h2>Horas: <span>{infoJogador?.horas}</span></h2>
-        </div>
+      <div className="botoes">
+        <button className="botao" onClick={aumentar10}>
+          Aumentar +10
+        </button>
 
+        <button className="botao" onClick={Diminuir}>
+          Diminuir -10
+        </button>
+
+        <button className="botao" onClick={SubirNivel}>
+          Subir Nivel!
+        </button>
+      </div>
     </div>
-)
-
+  );
 }
