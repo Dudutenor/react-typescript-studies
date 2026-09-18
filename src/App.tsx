@@ -1,204 +1,113 @@
 import { useState } from "react";
-import './App.css'
 
-interface FichaProps {
-  nomeJogador: string;
-  nomePersonagem: string;
-  classe: string;
-  nivel: number;
-  vida: number;
-  item: string;
+import type { FormEvent } from "react";
+
+import "./App.css";
+
+interface InfoProps {
+  pessoas: number;
+  valorConta: string;
+  valorPessoa: string;
 }
 
 export default function App() {
-  const [ficha, setFicha] = useState<FichaProps>({
-    nomeJogador: "",
-    nomePersonagem: "",
-    classe: "",
-    nivel: 0,
-    vida: 0,
-    item: "",
-  });
+  const [valorConta, setValorConta] = useState(0);
+  const [valorPessoa, setValorPessoa] = useState(0);
+  const [info, setInfo] = useState<InfoProps>();
 
-  function AumentarLevel() {
-    setFicha({ ...ficha, nivel: ficha.nivel + 1 });
+  function calcular(event: FormEvent) {
+    event.preventDefault();
+
+    if (valorPessoa === 0) {
+      return;
+    }
+
+    let calculo = valorConta / valorPessoa;
+
+    setInfo({
+      pessoas: valorPessoa,
+      valorConta: formatarMoeda(valorConta),
+      valorPessoa: formatarMoeda(calculo),
+    });
   }
 
-  function AumentarVida() {
-    setFicha({ ...ficha, vida: ficha.vida + 1 });
+  function formatarMoeda(valor: number) {
+    let valorFormatado = valor.toLocaleString("pt-br", {
+      style: "currency",
+      currency: "BRL",
+    });
+
+    return valorFormatado;
   }
 
-  function DiminuirVida() {
-    setFicha({ ...ficha, vida: ficha.vida - 1 });
-  }
-return (
-  <div className="pagina">
+  return (
+    <main className="container">
+      <section className="card">
+        <header className="header">
+          <span className="icon">🍽️</span>
 
-    <div className="ficha">
+          <div>
+            <h1>Divisão de Conta</h1>
+            <p>Calcule quanto cada pessoa deve pagar.</p>
+          </div>
+        </header>
 
-      <header className="cabecalho">
-        <p className="subtitulo">DUNGEONS & DRAGONS</p>
-        <h1>Ficha de Jogador</h1>
-        <div className="linha-decorativa"></div>
-        <p>Registre os detalhes do seu aventureiro</p>
-      </header>
+        <form className="form" onSubmit={calcular}>
+          <div className="inputGroup">
+            <label htmlFor="pessoas">Quantas pessoas estão pagando?</label>
 
-      <section className="dados">
-        <h2 className="titulo-secao">Informações do Aventureiro</h2>
-
-        <div className="campo">
-          <label>Nome do Jogador</label>
-          <input
-            className="input"
-            placeholder="Digite o nome do Jogador"
-            value={ficha.nomeJogador}
-            onChange={(e) =>
-              setFicha({ ...ficha, nomeJogador: e.target.value })
-            }
-          />
-        </div>
-
-        <div className="campo">
-          <label>Nome do Personagem</label>
-          <input
-            className="input"
-            placeholder="Nome do Personagem"
-            value={ficha.nomePersonagem}
-            onChange={(e) =>
-              setFicha({ ...ficha, nomePersonagem: e.target.value })
-            }
-          />
-        </div>
-
-        <div className="campo">
-          <label>Classe</label>
-          <input
-            className="input"
-            placeholder="Digite sua classe"
-            value={ficha.classe}
-            onChange={(e) =>
-              setFicha({ ...ficha, classe: e.target.value })
-            }
-          />
-        </div>
-
-        <div className="linha">
-
-          <div className="campo pequeno">
-            <label>Nível</label>
             <input
-              className="input"
+              id="pessoas"
               type="number"
-              placeholder="Nível"
-              value={ficha.nivel}
-              onChange={(e) =>
-                setFicha({
-                  ...ficha,
-                  nivel: Number(e.target.value),
-                })
-              }
+              placeholder="Ex: 4"
+              required
+              min="0"
+              value={valorPessoa}
+              onChange={(e) => setValorPessoa(Number(e.target.value))}
             />
           </div>
 
-          <div className="campo pequeno">
-            <label>Vida</label>
+          <div className="inputGroup">
+            <label htmlFor="conta">Valor da conta</label>
+
             <input
-              className="input"
+              id="conta"
               type="number"
-              placeholder="Vida"
-              value={ficha.vida}
-              onChange={(e) =>
-                setFicha({
-                  ...ficha,
-                  vida: Number(e.target.value),
-                })
-              }
+              placeholder="Ex: 120,00"
+              required
+              min="0"
+              step="0.01"
+              value={valorConta}
+              onChange={(e) => setValorConta(Number(e.target.value))}
             />
           </div>
 
-        </div>
-
-        <div className="campo">
-          <label>Item Atual</label>
-          <input
-            className="input"
-            placeholder="Coloque seu item atual"
-            value={ficha.item}
-            onChange={(e) =>
-              setFicha({ ...ficha, item: e.target.value })
-            }
-          />
-        </div>
-
-      </section>
-
-      <section className="personagem">
-
-        <h2 className="titulo-secao">Registro do Personagem</h2>
-
-        <div className="atributos">
-
-          <div className="atributo">
-            <span className="atributo-titulo">JOGADOR</span>
-            <strong>{ficha.nomeJogador || "—"}</strong>
-          </div>
-
-          <div className="atributo">
-            <span className="atributo-titulo">PERSONAGEM</span>
-            <strong>{ficha.nomePersonagem || "—"}</strong>
-          </div>
-
-          <div className="atributo">
-            <span className="atributo-titulo">CLASSE</span>
-            <strong>{ficha.classe || "—"}</strong>
-          </div>
-
-          <div className="atributo destaque">
-            <span className="atributo-titulo">NÍVEL</span>
-            <strong>{ficha.nivel}</strong>
-          </div>
-
-          <div className="atributo vida">
-            <span className="atributo-titulo">VIDA</span>
-            <strong>{ficha.vida}</strong>
-          </div>
-
-          <div className="atributo">
-            <span className="atributo-titulo">ITEM</span>
-            <strong>{ficha.item || "—"}</strong>
-          </div>
-
-        </div>
-
-      </section>
-
-      <section className="acoes">
-
-        <h2 className="titulo-secao">Ações</h2>
-
-        <div className="botoes">
-
-          <button className="botao" onClick={AumentarLevel}>
-            ▲
-            <span>Aumentar Nível</span>
+          <button className="calculateButton" type="submit">
+            Calcular conta
           </button>
+        </form>
 
-          <button className="botao perigo" onClick={DiminuirVida}>
-            ▼
-            <span>Diminuir Vida</span>
-          </button>
+        {info && Object.keys(info).length > 0 && (
+          <section className="result">
+            <h2>Resultado</h2>
 
-          <button className="botao cura" onClick={AumentarVida}>
-            ✚
-            <span>Aumentar Vida</span>
-          </button>
+            <div className="resultItem">
+              <span>Valor da conta</span>
+              <strong>{info.valorConta}</strong>
+            </div>
 
-        </div>
+            <div className="resultItem">
+              <span>Pessoas</span>
+              <strong>{info.pessoas}</strong>
+            </div>
 
+            <div className="resultItem highlight">
+              <span>Valor por pessoa</span>
+              <strong>{info.valorPessoa}</strong>
+            </div>
+          </section>
+        )}
       </section>
-
-    </div>
-
-  </div>
-);
+    </main>
+  );
 }
