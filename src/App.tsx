@@ -2,112 +2,170 @@ import { useState } from "react";
 
 import type { FormEvent } from "react";
 
-import "./App.css";
+import './app.css'
 
-interface InfoProps {
-  pessoas: number;
-  valorConta: string;
-  valorPessoa: string;
+interface GuildaProps {
+  nome: string;
+  lider: string;
+  membros: number;
+  nivel: number;
+  ouro: number;
 }
 
 export default function App() {
-  const [valorConta, setValorConta] = useState(0);
-  const [valorPessoa, setValorPessoa] = useState(0);
-  const [info, setInfo] = useState<InfoProps>();
+  const [guildaForm, setGuildaForm] = useState<GuildaProps>({
+    nome: "",
+    lider: "",
+    membros: 0,
+    nivel: 0,
+    ouro: 0,
+  });
 
-  function calcular(event: FormEvent) {
-    event.preventDefault();
+  const [guilda, setGuilda] = useState<GuildaProps>();
 
-    if (valorPessoa === 0) {
-      return;
-    }
+  function Cadastrar(event: FormEvent) {
+    event?.preventDefault();
 
-    let calculo = valorConta / valorPessoa;
-
-    setInfo({
-      pessoas: valorPessoa,
-      valorConta: formatarMoeda(valorConta),
-      valorPessoa: formatarMoeda(calculo),
-    });
+    setGuilda(guildaForm);
   }
 
-  function formatarMoeda(valor: number) {
-    let valorFormatado = valor.toLocaleString("pt-br", {
-      style: "currency",
-      currency: "BRL",
-    });
+  function Aumentar() {
+    guilda &&
+      Object.keys(guilda).length > 0 &&
+      setGuilda({
+        ...guilda,
+        ouro: guilda.ouro + 100,
+      });
+  }
 
-    return valorFormatado;
+  function AumentarNivel() {
+    guilda &&
+      Object.keys(guilda).length > 0 &&
+      setGuilda({
+        ...guilda,
+        nivel: guilda.nivel + 1,
+      });
+  }
+
+  function RecrutarMembro() {
+    guilda &&
+      Object.keys(guilda).length > 0 &&
+      setGuilda({
+        ...guilda,
+        membros: guilda.membros + 1,
+      });
   }
 
   return (
-    <main className="container">
-      <section className="card">
-        <header className="header">
-          <span className="icon">🍽️</span>
+    <div className="guilda-page">
+      <h1 className="guilda-title">Cadastro de uma guilda!</h1>
+      <form className="guilda-form" onSubmit={Cadastrar}>
 
-          <div>
-            <h1>Divisão de Conta</h1>
-            <p>Calcule quanto cada pessoa deve pagar.</p>
-          </div>
-        </header>
+        <div className="campo">
+          <label>Nome da guilda:</label>
+          <input
+            type="string"
+            required
+            placeholder="Digite o nome da guilda"
+            value={guildaForm.nome}
+            onChange={(e) =>
+              setGuildaForm({
+                ...guildaForm,
+                nome: e.target.value,
+              })
+            }
+          />
+        </div>
 
-        <form className="form" onSubmit={calcular}>
-          <div className="inputGroup">
-            <label htmlFor="pessoas">Quantas pessoas estão pagando?</label>
+        <div className="campo">
+          <label>Nome do Lider:</label>
+          <input
+            type="string"
+            required
+            placeholder="Digite o nome do Lider"
+            value={guildaForm.lider}
+            onChange={(e) =>
+              setGuildaForm({
+                ...guildaForm,
+                lider: e.target.value,
+              })
+            }
+          />
+        </div>
 
-            <input
-              id="pessoas"
-              type="number"
-              placeholder="Ex: 4"
-              required
-              min="0"
-              value={valorPessoa}
-              onChange={(e) => setValorPessoa(Number(e.target.value))}
-            />
-          </div>
+        <div className="campo">
+          <label>Numero de Membros:</label>
+          <input
+            type="number"
+            min="1"
+            required
+            placeholder="Digite a quantid"
+            value={guildaForm.membros}
+            onChange={(e) =>
+              setGuildaForm({
+                ...guildaForm,
+                membros: Number(e.target.value),
+              })
+            }
+          />
+        </div>
 
-          <div className="inputGroup">
-            <label htmlFor="conta">Valor da conta</label>
+        <div className="campo campo-ouro">
+          <label>Numero de ouro:</label>
+          <input
+            type="string"
+            required
+            value={guildaForm.ouro}
+            onChange={(e) =>
+              setGuildaForm({
+                ...guildaForm,
+                ouro: Number(e.target.value),
+              })
+            }
+          />
+        </div>
 
-            <input
-              id="conta"
-              type="number"
-              placeholder="Ex: 120,00"
-              required
-              min="0"
-              step="0.01"
-              value={valorConta}
-              onChange={(e) => setValorConta(Number(e.target.value))}
-            />
-          </div>
+        <div className="campo campo-nivel">
+          <label>Nivel da Guilda</label>
+          <input
+            type="string"
+            required
+            value={guildaForm.nivel}
+            onChange={(e) =>
+              setGuildaForm({
+                ...guildaForm,
+                nivel: Number(e.target.value),
+              })
+            }
+          />
+        </div>
 
-          <button className="calculateButton" type="submit">
-            Calcular conta
-          </button>
-        </form>
+        <input className="botao-cadastrar" type="submit" value="Cadastrar" />
 
-        {info && Object.keys(info).length > 0 && (
-          <section className="result">
-            <h2>Resultado</h2>
+        {guilda && Object.keys(guilda).length > 0 && (
+          <section className="ficha-guilda">
+            <h3><span className="ficha-label">Nome da Guilda</span> {guilda.nome}</h3>
+            <h3><span className="ficha-label">Nome do Lider</span> {guilda.lider}</h3>
+            <h3 className="ficha-nivel"><span className="ficha-label">Nivel da Guilda</span> {guilda.nivel}</h3>
+            <h3><span className="ficha-label">Números de Membros</span> {guilda.membros}</h3>
+            <h3 className="ficha-ouro"><span className="ficha-label">Numero de ouro</span> {guilda.ouro}</h3>
 
-            <div className="resultItem">
-              <span>Valor da conta</span>
-              <strong>{info.valorConta}</strong>
-            </div>
+            <div className="acoes">
+              <button className="botao-acao botao-ouro" type="button" onClick={Aumentar}>
+                Aumentar 100 de Ouro!
+              </button>
 
-            <div className="resultItem">
-              <span>Pessoas</span>
-              <strong>{info.pessoas}</strong>
-            </div>
+              <button className="botao-acao botao-nivel" type="button" onClick={AumentarNivel}>
+                Aumentar Nivel da Guilda!
+              </button>
 
-            <div className="resultItem highlight">
-              <span>Valor por pessoa</span>
-              <strong>{info.valorPessoa}</strong>
+              <button className="botao-acao botao-membro" type="button" onClick={RecrutarMembro}>
+                Recrutar Membro!
+              </button>
             </div>
           </section>
         )}
-      </section>
-    </main>
+      </form>
+    </div>
   );
 }
