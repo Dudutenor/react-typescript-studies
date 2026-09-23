@@ -1,235 +1,193 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Share+Tech+Mono&family=Rajdhani:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Quicksand:wght@400;500;600&display=swap");
 
-:root {
-  --bg: #0a0e14;
-  --painel: #10151f;
-  --painel-claro: #151b28;
-  --borda: #2a3446;
-  --texto: #cdd8e3;
-  --texto-fraco: #6b7789;
-
-  --ciano: #29f1d1;
-  --magenta: #ff2e88;
-  --ouro: #ffcc33;
-}
-
-body {
-  background: var(--bg);
-  background-image:
-    linear-gradient(rgba(41, 241, 209, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(41, 241, 209, 0.04) 1px, transparent 1px);
-  background-size: 34px 34px;
-}
-
-.guilda-page {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 4rem 1.5rem;
-  font-family: 'Rajdhani', sans-serif;
-  color: var(--texto);
-}
-
-.guilda-title {
-  font-family: 'Orbitron', sans-serif;
-  font-weight: 800;
-  font-size: 1.9rem;
-  letter-spacing: 0.05em;
-  color: var(--ciano);
-  margin-bottom: 2.5rem;
-  text-align: center;
-  text-shadow: 0 0 14px rgba(41, 241, 209, 0.45);
-}
-
-.guilda-form {
-  width: 100%;
-  max-width: 460px;
-  background: var(--painel);
-  border: 1px solid var(--borda);
-  padding: 2.5rem 2rem;
-  position: relative;
-  box-shadow:
-    0 0 0 1px rgba(41, 241, 209, 0.08),
-    0 20px 60px rgba(0, 0, 0, 0.6);
-}
-
-.guilda-form::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 28px;
-  height: 28px;
-  border-top: 2px solid var(--ciano);
-  border-left: 2px solid var(--ciano);
-}
-
-.guilda-form::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 28px;
-  height: 28px;
-  border-bottom: 2px solid var(--magenta);
-  border-right: 2px solid var(--magenta);
-}
-
-.campo {
-  margin-bottom: 1.3rem;
-}
-
-.campo label {
-  display: block;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  color: var(--texto-fraco);
-  margin-bottom: 0.4rem;
-}
-
-.campo input {
-  width: 100%;
-  background: var(--painel-claro);
-  border: 1px solid var(--borda);
-  color: var(--texto);
-  font-family: 'Rajdhani', sans-serif;
-  font-size: 1.05rem;
-  font-weight: 500;
-  padding: 0.55rem 0.7rem;
+* {
   box-sizing: border-box;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.campo input::placeholder {
-  color: var(--texto-fraco);
-}
-
-.campo input:focus {
-  outline: none;
-  border-color: var(--ciano);
-  box-shadow: 0 0 10px rgba(41, 241, 209, 0.35);
-}
-
-.campo-ouro input {
-  color: var(--ouro);
-  font-weight: 600;
-}
-
-.campo-ouro input:focus {
-  border-color: var(--ouro);
-  box-shadow: 0 0 10px rgba(255, 204, 51, 0.35);
-}
-
-.campo-nivel input {
-  color: var(--magenta);
-  font-weight: 600;
-}
-
-.campo-nivel input:focus {
-  border-color: var(--magenta);
-  box-shadow: 0 0 10px rgba(255, 46, 136, 0.35);
-}
-
-.botao-cadastrar {
+.vn-page {
+  min-height: 100vh;
   width: 100%;
-  margin-top: 0.5rem;
-  padding: 0.75rem 1rem;
-  background: var(--ciano);
-  border: 1px solid var(--ciano);
-  color: #04120f;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
-  cursor: pointer;
-  transition: box-shadow 0.15s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  background: linear-gradient(160deg, #1b1030 0%, #3a1c53 45%, #6a2c63 100%);
+  background-attachment: fixed;
+  font-family: "Quicksand", sans-serif;
+  position: relative;
+  overflow: hidden;
 }
 
-.botao-cadastrar:hover {
-  box-shadow: 0 0 18px rgba(41, 241, 209, 0.6);
+.vn-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+      2px 2px at 20% 30%,
+      rgba(255, 255, 255, 0.5),
+      transparent
+    ),
+    radial-gradient(2px 2px at 70% 20%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1.5px 1.5px at 40% 70%, rgba(255, 255, 255, 0.35), transparent),
+    radial-gradient(1.5px 1.5px at 85% 60%, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(2px 2px at 55% 85%, rgba(255, 255, 255, 0.35), transparent);
+  pointer-events: none;
 }
 
-.botao-cadastrar:active {
-  transform: translateY(1px);
+.vn-container {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: rgba(20, 12, 36, 0.72);
+  border: 1px solid rgba(255, 210, 240, 0.25);
+  border-radius: 18px;
+  padding: 32px 30px 36px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03),
+    0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(200, 100, 220, 0.15);
 }
 
-.ficha-guilda {
-  margin-top: 2rem;
-  padding-top: 1.5rem;
-  border-top: 1px dashed var(--borda);
+.vn-title {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  text-align: center;
+  letter-spacing: 0.03em;
+  margin: 0 0 28px;
+  color: #ffe9fb;
+  text-shadow: 0 0 18px rgba(255, 160, 230, 0.55);
 }
 
-.ficha-guilda h3 {
-  font-weight: 500;
-  font-size: 1.05rem;
-  margin: 0.5rem 0;
-  color: var(--texto);
-}
-
-.ficha-label {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.65rem;
-  letter-spacing: 0.05em;
-  color: var(--texto-fraco);
-  display: block;
-  margin-bottom: 0.1rem;
-}
-
-.ficha-ouro {
-  color: var(--ouro);
-}
-
-.ficha-nivel {
-  color: var(--magenta);
-}
-
-.acoes {
+.vn-form {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
-  margin-top: 1.2rem;
+  gap: 18px;
 }
 
-.botao-acao {
-  padding: 0.55rem 1rem;
-  background: transparent;
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 0.75rem;
+.vn-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vn-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #d9c3ec;
+}
+
+.vn-input {
+  font-family: "Quicksand", sans-serif;
+  font-size: 0.95rem;
+  color: #fdf2ff;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 200, 235, 0.3);
+  border-radius: 10px;
+  padding: 10px 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.vn-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.vn-input:focus {
+  border-color: #ff9edb;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 3px rgba(255, 158, 219, 0.18);
+}
+
+.vn-input--nota {
+  max-width: 120px;
+}
+
+.vn-submit {
+  margin-top: 6px;
+  align-self: center;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  font-size: 1.05rem;
   letter-spacing: 0.04em;
+  color: #241030;
+  background: linear-gradient(135deg, #ffd6f3, #ff9edb);
+  border: none;
+  border-radius: 999px;
+  padding: 10px 32px;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 6px 18px rgba(255, 130, 210, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.botao-ouro {
-  border: 1px solid var(--ouro);
-  color: var(--ouro);
+.vn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(255, 130, 210, 0.5);
 }
 
-.botao-ouro:hover {
-  background: var(--ouro);
-  color: #1a1200;
-  box-shadow: 0 0 14px rgba(255, 204, 51, 0.5);
+.vn-submit:active {
+  transform: translateY(0);
 }
 
-.botao-nivel {
-  border: 1px solid var(--magenta);
-  color: var(--magenta);
+.vn-card {
+  margin-top: 26px;
+  padding: 20px 22px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 210, 240, 0.25);
+  border-left: 3px solid #ff9edb;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: vn-fade-in 0.35s ease;
 }
 
-.botao-nivel:hover {
-  background: var(--magenta);
-  color: #1a0010;
-  box-shadow: 0 0 14px rgba(255, 46, 136, 0.5);
+.vn-card-title {
+  margin: 0;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #d9c3ec;
 }
 
-.botao-membro {
-  border: 1px solid var(--ciano);
-  color: var(--ciano);
+.vn-card-title span {
+  font-weight: 600;
+  color: #ffe9fb;
 }
 
-.botao-membro:hover {
-  background: var(--ciano);
-  color: #04120f;
-  box-shadow: 0 0 14px rgba(41, 241, 209, 0.5);
+.vn-card-nota span {
+  color: #ffb6ec;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.2rem;
+}
+
+.vn-button {
+  align-self: flex-start;
+  margin-top: 4px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #ffe9fb;
+  background: rgba(255, 158, 219, 0.15);
+  border: 1px solid rgba(255, 158, 219, 0.5);
+  border-radius: 999px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.vn-button:hover {
+  background: rgba(255, 158, 219, 0.28);
+  transform: translateY(-1px);
+}
+
+@keyframes vn-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
