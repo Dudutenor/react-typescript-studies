@@ -1,146 +1,92 @@
 import { useState } from "react";
-
-import type { FormEvent } from "react";
-
-import './app.css'
-
-interface LeitorProps {
-  leitor: string;
-  lendo: string;
-  vaiLer: string;
-  nota: number;
-}
+import "./App.css";
 
 export default function App() {
-  const [leitor, setLeitor] = useState<LeitorProps>({
-    leitor: "",
-    lendo: "",
-    vaiLer: "",
-    nota: 0,
+  /* Estados */
+  const [compras, setCompras] = useState<string[]>([]);
+
+  const [editCompras, setEditCompras] = useState({
+    enabled: false,
+    produto: "",
   });
 
-  const [info, setInfo] = useState<LeitorProps>();
+  const [input, setInput] = useState("");
 
-  function cadastrar(event: FormEvent) {
-    event.preventDefault();
-    setInfo(leitor);
+  /* Funções */
+
+  function Adicionar() {
+    if (!input) {
+      alert("Adiciona uma compra!");
+      return;
+    }
+
+    if (editCompras.enabled) {
+      salvarEdicao();
+      return;
+    }
+
+    setCompras((compras) => [...compras, input]);
+    setInput("");
   }
 
-function AumentarNota() {
-  if (!info) return;
-  if (info.nota === 0) return;
-  if (info.nota >= 10) return;
+  function editarCompra(item: string) {
+    setInput(item);
+    setEditCompras({
+      enabled: true,
+      produto: item,
+    });
+  }
 
-  setInfo({
-    ...info,
-    nota: info.nota + 1,
-  });
-}
+  function salvarEdicao() {
+    const acharIndex = compras.findIndex(
+      (produto) => produto === editCompras.produto,
+    );
+    const todasCompras = [...compras];
+    todasCompras[acharIndex] = input;
+    setCompras(todasCompras);
+    setInput("");
+
+    setEditCompras({
+      enabled: false,
+      produto: "",
+    });
+  }
+
+  function excluirCompra(item: string) {
+    const removerCompra = compras.filter((produto) => produto !== item);
+    setCompras(removerCompra);
+  }
 
   return (
-    <div className="vn-page">
-      <div className="vn-container">
-        <h1 className="vn-title">Perfil de Leitor de Visual Novel</h1>
+    <div className="container">
+      <h1 className="titulo">Listas de Compras!</h1>
 
-        <form className="vn-form" onSubmit={cadastrar}>
-          <div className="vn-field">
-            <label className="vn-label">Nome do Leitor:</label>
-            <input
-              className="vn-input"
-              type="text"
-              required
-              value={leitor.leitor}
-              onChange={(e) =>
-                setLeitor({
-                  ...leitor,
-                  leitor: e.target.value,
-                })
-              }
-            />
-          </div>
+      <div className="formulario">
+        <input
+          className="campo"
+          placeholder="Adicione uma compra"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+        />
 
-          <div className="vn-field">
-            <label className="vn-label">
-              Visual Novel que está lendo atualmente
-            </label>
-            <input
-              className="vn-input"
-              type="text"
-              required
-              value={leitor.lendo}
-              onChange={(e) =>
-                setLeitor({
-                  ...leitor,
-                  lendo: e.target.value,
-                })
-              }
-            />
-          </div>
-
-          <div className="vn-field">
-            <label className="vn-label">
-              Visual Novel que irá ler futuramente:
-            </label>
-            <input
-              className="vn-input"
-              type="text"
-              required
-              value={leitor.vaiLer}
-              onChange={(e) =>
-                setLeitor({
-                  ...leitor,
-                  vaiLer: e.target.value,
-                })
-              }
-            />
-          </div>
-
-          <div className="vn-field">
-            <label className="vn-label">Nota para Visual Novel atual:</label>
-            <input
-              className="vn-input vn-input--nota"
-              type="number"
-              required
-              min="1"
-              step="0.01"
-              value={leitor.nota}
-              onChange={(e) =>
-                setLeitor({
-                  ...leitor,
-                  nota: Number(e.target.value),
-                })
-              }
-            />
-          </div>
-
-          <input className="vn-submit" type="submit" value="Cadastrar" />
-
-          {info && Object.keys(info).length > 0 && (
-            <section className="vn-card">
-              <h3 className="vn-card-title">
-                Nome do leitor: <span>{info.leitor}</span>
-              </h3>
-              <h3 className="vn-card-title">
-                Lendo atualmente: <span>{info.lendo}</span>
-              </h3>
-              <h3 className="vn-card-title">
-                Pretende ler: <span>{info.vaiLer}</span>
-              </h3>
-              <h3 className="vn-card-title vn-card-nota">
-                Nota: <span>{info.nota}</span>
-              </h3>
-
-              <button
-                className="vn-button"
-                type="button"
-                onClick={AumentarNota}
-              >
-                Aumentar nota!
-              </button>
-            </section>
-          )}
-        </form>
+        <button className="botao-principal" onClick={Adicionar}>
+          {editCompras.enabled ? "Atualizar Compra!" : "Adicionar Compra!"}
+        </button>
       </div>
+
+      <hr className="divisor" />
+
+      {compras.map((item) => (
+        <section className="item" key={item}>
+          <span className="item-nome">{item}</span>
+          <button className="botao-editar" onClick={() => editarCompra(item)}>
+            Editar
+          </button>
+          <button className="botao-excluir" onClick={() => excluirCompra(item)}>
+            Excluir!
+          </button>
+        </section>
+      ))}
     </div>
   );
 }

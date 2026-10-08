@@ -1,193 +1,166 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Quicksand:wght@400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600&display=swap");
+
+/* Cores e fontes em um lugar só: para mudar o visual, mexa aqui */
+:root {
+  --fundo: #14181f;
+  --superficie: #1c222b;
+  --borda: #2c3441;
+  --texto: #e8e4dc;
+  --texto-suave: #8b94a3;
+  --destaque: #e0a458;
+  --perigo: #e5736a;
+}
 
 * {
   box-sizing: border-box;
 }
 
-.vn-page {
+body {
+  display: block;
   min-height: 100vh;
-  width: 100%;
+  margin: 0;
+  padding: 48px 16px;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: "DM Sans", system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+/* Caixa central da página */
+.container {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.titulo {
+  margin: 0 0 24px;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Campo + botão lado a lado */
+.formulario {
+  display: flex;
+  gap: 8px;
+}
+
+.campo {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  color: var(--texto);
+  font: inherit;
+}
+
+.campo::placeholder {
+  color: var(--texto-suave);
+}
+
+.campo:focus {
+  outline: none;
+  border-color: var(--destaque);
+  box-shadow: 0 0 0 3px rgba(224, 164, 88, 0.25);
+}
+
+.botao-principal {
+  padding: 0 18px;
+  background: var(--destaque);
+  border: 0;
+  border-radius: 8px;
+  color: #1a1305;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+
+.botao-principal:hover {
+  filter: brightness(1.1);
+}
+
+.botao-principal:focus-visible {
+  outline: 2px solid var(--texto);
+  outline-offset: 2px;
+}
+
+/* Linha que separa o formulário da lista */
+.divisor {
+  margin: 24px 0 8px;
+  border: 0;
+  border-top: 1px solid var(--borda);
+}
+
+/* Cada compra: linha tracejada embaixo, como uma nota de mercado */
+.item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-  background: linear-gradient(160deg, #1b1030 0%, #3a1c53 45%, #6a2c63 100%);
-  background-attachment: fixed;
-  font-family: "Quicksand", sans-serif;
-  position: relative;
-  overflow: hidden;
+  gap: 8px;
+  padding: 14px 0;
+  border-bottom: 1px dashed var(--borda);
 }
 
-.vn-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(
-      2px 2px at 20% 30%,
-      rgba(255, 255, 255, 0.5),
-      transparent
-    ),
-    radial-gradient(2px 2px at 70% 20%, rgba(255, 255, 255, 0.4), transparent),
-    radial-gradient(1.5px 1.5px at 40% 70%, rgba(255, 255, 255, 0.35), transparent),
-    radial-gradient(1.5px 1.5px at 85% 60%, rgba(255, 255, 255, 0.3), transparent),
-    radial-gradient(2px 2px at 55% 85%, rgba(255, 255, 255, 0.35), transparent);
-  pointer-events: none;
+.item-nome {
+  flex: 1;
+  overflow-wrap: anywhere;
 }
 
-.vn-container {
-  position: relative;
-  width: 100%;
-  max-width: 480px;
-  background: rgba(20, 12, 36, 0.72);
-  border: 1px solid rgba(255, 210, 240, 0.25);
-  border-radius: 18px;
-  padding: 32px 30px 36px;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.03),
-    0 20px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(200, 100, 220, 0.15);
-}
-
-.vn-title {
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 700;
-  font-size: 1.9rem;
-  text-align: center;
-  letter-spacing: 0.03em;
-  margin: 0 0 28px;
-  color: #ffe9fb;
-  text-shadow: 0 0 18px rgba(255, 160, 230, 0.55);
-}
-
-.vn-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.vn-field {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.vn-label {
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: #d9c3ec;
-}
-
-.vn-input {
-  font-family: "Quicksand", sans-serif;
-  font-size: 0.95rem;
-  color: #fdf2ff;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 200, 235, 0.3);
-  border-radius: 10px;
-  padding: 10px 14px;
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-}
-
-.vn-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.vn-input:focus {
-  border-color: #ff9edb;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 0 0 3px rgba(255, 158, 219, 0.18);
-}
-
-.vn-input--nota {
-  max-width: 120px;
-}
-
-.vn-submit {
-  margin-top: 6px;
-  align-self: center;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 600;
-  font-size: 1.05rem;
-  letter-spacing: 0.04em;
-  color: #241030;
-  background: linear-gradient(135deg, #ffd6f3, #ff9edb);
-  border: none;
-  border-radius: 999px;
-  padding: 10px 32px;
+.botao-editar,
+.botao-excluir {
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  font: inherit;
+  font-size: 0.875rem;
   cursor: pointer;
-  box-shadow: 0 6px 18px rgba(255, 130, 210, 0.35);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    color 0.15s,
+    border-color 0.15s,
+    background 0.15s;
 }
 
-.vn-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(255, 130, 210, 0.5);
+.botao-editar {
+  color: var(--texto-suave);
 }
 
-.vn-submit:active {
-  transform: translateY(0);
+.botao-editar:hover {
+  color: var(--destaque);
+  border-color: var(--destaque);
 }
 
-.vn-card {
-  margin-top: 26px;
-  padding: 20px 22px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 210, 240, 0.25);
-  border-left: 3px solid #ff9edb;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  animation: vn-fade-in 0.35s ease;
+.botao-excluir {
+  color: var(--perigo);
+  border-color: rgba(229, 115, 106, 0.4);
 }
 
-.vn-card-title {
-  margin: 0;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 500;
-  font-size: 0.95rem;
-  color: #d9c3ec;
+.botao-excluir:hover {
+  background: rgba(229, 115, 106, 0.12);
+  border-color: var(--perigo);
 }
 
-.vn-card-title span {
-  font-weight: 600;
-  color: #ffe9fb;
+.botao-editar:focus-visible,
+.botao-excluir:focus-visible {
+  outline: 2px solid var(--texto);
+  outline-offset: 2px;
 }
 
-.vn-card-nota span {
-  color: #ffb6ec;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 1.2rem;
-}
-
-.vn-button {
-  align-self: flex-start;
-  margin-top: 4px;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 600;
-  font-size: 0.85rem;
-  color: #ffe9fb;
-  background: rgba(255, 158, 219, 0.15);
-  border: 1px solid rgba(255, 158, 219, 0.5);
-  border-radius: 999px;
-  padding: 8px 18px;
-  cursor: pointer;
-  transition: background 0.2s ease, transform 0.15s ease;
-}
-
-.vn-button:hover {
-  background: rgba(255, 158, 219, 0.28);
-  transform: translateY(-1px);
-}
-
-@keyframes vn-fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
+@media (max-width: 480px) {
+  body {
+    padding: 32px 12px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .titulo {
+    font-size: 1.6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
   }
 }

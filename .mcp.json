@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "deepspace": {
+      "command": "C:\\Users\\Dudu\\AppData\\Local\\Programs\\Deep Space\\resources\\deepspace-cli-runtime\\node.exe",
+      "args": [
+        "C:\\Users\\Dudu\\AppData\\Local\\Programs\\Deep Space\\resources\\app\\packages\\deepspace-cli\\bin\\deepspace.js",
+        "mcp"
+      ],
+      "env": {
+        "ELECTRON_RUN_AS_NODE": "1"
+      }
+    },
+    "figma": {
+      "type": "http",
+      "url": "https://mcp.figma.com/mcp"
+    }
+  }
+}
